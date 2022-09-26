@@ -23,6 +23,7 @@ namespace UserMaintenance
             lbFullName.Text = Strings.FullName;
             btnAdd.Text = Strings.Add;
             btnWriteToFile.Text = Strings.WriteToFile;
+            btnDelete.Text = Strings.Delete;
 
             listBox1.DataSource = users;
             listBox1.ValueMember = "ID";
@@ -56,6 +57,13 @@ namespace UserMaintenance
                     }
                 }
             }
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            var user = (User)listBox1.SelectedItem;
+            users.Remove(user);
+            listBox1.DataSource = users;
         }
     }
 }
