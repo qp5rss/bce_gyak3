@@ -89,6 +89,7 @@ namespace qp5rss_gyak4
                 values[index, 6] = f.FloorArea;
                 values[index, 7] = f.Price;
                 values[index, 8] = "=" + GetCell(index + 2, 8) + "/" + GetCell(index + 2, 6);
+                index++;
 
                 xlSheet.get_Range(GetCell(2, 1), GetCell(1 + values.GetLength(0), values.GetLength(1))).Value2 = values;
             }
@@ -108,15 +109,15 @@ namespace qp5rss_gyak4
                 GetCell(xlSheet.UsedRange.Rows.Count, xlSheet.UsedRange.Columns.Count));
             fullRange.BorderAround2(Excel.XlLineStyle.xlContinuous, Excel.XlBorderWeight.xlThick);
 
-            Excel.Range firstColumn = xlSheet.get_Range(GetCell(1, 1), GetCell(xlSheet.UsedRange.Rows.Count, 1));
+            Excel.Range firstColumn = xlSheet.get_Range(GetCell(1, 1), GetCell(xlSheet.UsedRange.Rows.Count - 1, 1));
             firstColumn.Interior.Color = Color.LightYellow;
             firstColumn.Font.Bold = true;
 
             Excel.Range lastColumn = xlSheet.get_Range(
                 GetCell(1, xlSheet.UsedRange.Columns.Count),
-                GetCell(xlSheet.UsedRange.Rows.Count, xlSheet.UsedRange.Columns.Count));
+                GetCell(xlSheet.UsedRange.Rows.Count - 1, xlSheet.UsedRange.Columns.Count));
             lastColumn.Interior.Color = Color.LightGreen;
-            lastColumn.NumberFormat = "0,00";
+            lastColumn.NumberFormat = "0.00";
         }
 
         private string GetCell(int x, int y)
