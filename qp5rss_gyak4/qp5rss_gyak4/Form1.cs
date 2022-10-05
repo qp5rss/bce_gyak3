@@ -78,7 +78,7 @@ namespace qp5rss_gyak4
 
             object[,] values = new object[Flats.Count, headers.Length];
             int index = 0;
-            foreach(Flat f in Flats)
+            foreach (Flat f in Flats)
             {
                 values[index, 0] = f.Code;
                 values[index, 1] = f.Vendor;
@@ -92,6 +92,31 @@ namespace qp5rss_gyak4
 
                 xlSheet.get_Range(GetCell(2, 1), GetCell(1 + values.GetLength(0), values.GetLength(1))).Value2 = values;
             }
+
+            Excel.Range headerRange = xlSheet.get_Range(GetCell(1, 1), GetCell(1, headers.Length));
+            headerRange.Font.Bold = true;
+            headerRange.VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+            headerRange.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+            headerRange.EntireColumn.AutoFit();
+            headerRange.RowHeight = 40;
+            headerRange.Interior.Color = Color.LightBlue;
+            headerRange.BorderAround2(Excel.XlLineStyle.xlContinuous, Excel.XlBorderWeight.xlThick);
+
+            // Border around the full data
+            Excel.Range fullRange = xlSheet.get_Range(
+                GetCell(1, 1), 
+                GetCell(xlSheet.UsedRange.Rows.Count, xlSheet.UsedRange.Columns.Count));
+            fullRange.BorderAround2(Excel.XlLineStyle.xlContinuous, Excel.XlBorderWeight.xlThick);
+
+            Excel.Range firstColumn = xlSheet.get_Range(GetCell(1, 1), GetCell(xlSheet.UsedRange.Rows.Count, 1));
+            firstColumn.Interior.Color = Color.LightYellow;
+            firstColumn.Font.Bold = true;
+
+            Excel.Range lastColumn = xlSheet.get_Range(
+                GetCell(1, xlSheet.UsedRange.Columns.Count),
+                GetCell(xlSheet.UsedRange.Rows.Count, xlSheet.UsedRange.Columns.Count));
+            lastColumn.Interior.Color = Color.LightGreen;
+            lastColumn.NumberFormat = "0,00";
         }
 
         private string GetCell(int x, int y)
