@@ -88,7 +88,7 @@ namespace qp5rss_gyak4
                 values[index, 5] = f.NumberOfRooms;
                 values[index, 6] = f.FloorArea;
                 values[index, 7] = f.Price;
-                values[index, 8] = "=" + GetCell(index, 8).ToString() + "/" + GetCell(index, 6);
+                values[index, 8] = "=" + GetCell(index + 2, 8) + "/" + GetCell(index + 2, 6);
 
                 xlSheet.get_Range(GetCell(2, 1), GetCell(1 + values.GetLength(0), values.GetLength(1))).Value2 = values;
             }
