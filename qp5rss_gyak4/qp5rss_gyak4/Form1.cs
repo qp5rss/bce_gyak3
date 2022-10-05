@@ -25,6 +25,7 @@ namespace qp5rss_gyak4
         {
             InitializeComponent();
             LoadData();
+            CreateExcel();
         }
 
         private void LoadData()
@@ -44,7 +45,8 @@ namespace qp5rss_gyak4
 
                 xlApp.Visible = true;
                 xlApp.UserControl = true;
-            } catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 string errMsg = string.Format("Error: {0}\nLine: {1}", ex.Message, ex.Source);
                 MessageBox.Show(errMsg, "Error");
@@ -54,6 +56,59 @@ namespace qp5rss_gyak4
                 xlWB = null;
                 xlApp = null;
             }
+        }
+
+        private void CreateTable()
+        {
+            string[] headers = new string[] {
+                 "Kód",
+                 "Eladó",
+                 "Oldal",
+                 "Kerület",
+                 "Lift",
+                 "Szobák száma",
+                 "Alapterület (m2)",
+                 "Ár (mFt)",
+                 "Négyzetméter ár (Ft/m2)"};
+
+            for (int i = 1; i <= headers.Length; i++)
+            {
+                xlSheet.Cells[1, i] = headers[i - 1];
+            }
+
+            object[,] values = new object[Flats.Count, headers.Length];
+            int index = 0;
+            foreach(Flat f in Flats)
+            {
+                values[index, 0] = f.Code;
+                values[index, 1] = f.Vendor;
+                values[index, 2] = f.Side;
+                values[index, 3] = f.District;
+                values[index, 4] = f.Elevator;
+                values[index, 5] = f.NumberOfRooms;
+                values[index, 6] = f.FloorArea;
+                values[index, 7] = f.Price;
+                values[index, 8] = "=" + GetCell(index, 8).ToString() + "/" + GetCell(index, 6);
+
+                xlSheet.get_Range(GetCell(2, 1), GetCell(1 + values.GetLength(0), values.GetLength(1))).Value2 = values;
+            }
+        }
+
+        private string GetCell(int x, int y)
+        {
+            string ExcelCoordinate = "";
+            int dividend = y;
+            int modulo;
+
+            while (dividend > 0)
+            {
+                modulo = (dividend - 1) % 26;
+                ExcelCoordinate = Convert.ToChar(65 + modulo).ToString() + ExcelCoordinate;
+                dividend = (int)((dividend - modulo) / 26);
+            }
+            ExcelCoordinate += x.ToString();
+
+            return ExcelCoordinate;
         }
     }
 }
