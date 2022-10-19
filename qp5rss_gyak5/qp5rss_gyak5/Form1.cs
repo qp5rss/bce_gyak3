@@ -21,6 +21,7 @@ namespace qp5rss_gyak5
         {
             InitializeComponent();
             ProcessXML(LoadMNB());
+            FillChart();
         }
 
         private string LoadMNB()
@@ -63,6 +64,25 @@ namespace qp5rss_gyak5
 
                 Rates.Add(tempRate);
             }
+        }
+
+        private void FillChart()
+        {
+            chart.DataSource = Rates;
+
+            var series = chart.Series[0];
+            series.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series.XValueMember = "Date";
+            series.YValueMembers = "Value";
+            series.BorderWidth = 2;
+
+            var legend = chart.Legends[0];
+            legend.Enabled = false;
+
+            var chartArea = chart.ChartAreas[0];
+            chartArea.AxisX.MajorGrid.Enabled = false;
+            chartArea.AxisY.MajorGrid.Enabled = false;
+            chartArea.AxisY.IsStartedFromZero = false;
         }
     }
 }
