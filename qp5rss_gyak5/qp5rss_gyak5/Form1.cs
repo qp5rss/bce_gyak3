@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using qp5rss_gyak5.MnbServiceReference;
 using qp5rss_gyak5.Entities;
+using System.Xml;
 
 namespace qp5rss_gyak5
 {
@@ -19,10 +20,10 @@ namespace qp5rss_gyak5
         public Form1()
         {
             InitializeComponent();
-            LoadMNB();
+            ProcessXML(LoadMNB());
         }
 
-        private void LoadMNB()
+        private string LoadMNB()
         {
             MNBArfolyamServiceSoapClient mnbService = new MNBArfolyamServiceSoapClient();
 
@@ -37,6 +38,31 @@ namespace qp5rss_gyak5
 
             var result = response.GetExchangeRatesResult;
             dataGridView.DataSource = Rates;
+
+            return result.ToString();
+        }
+
+        private void ProcessXML(string input)
+        {
+            XmlDocument xml = new XmlDocument();
+            xml.LoadXml(input);
+
+            foreach(XmlElement element in xml.DocumentElement)
+            {
+                var tempRate = new RateData();
+
+                tempRate.Date = DateTime.Parse(element.GetAttribute("date"));
+
+                var childElement = (XmlElement)element.ChildNodes[0];
+                tempRate.Currency = childElement.GetAttribute("curr");
+
+                var unit = decimal.Parse(childElement.GetAttribute("unit"));
+                var value = decimal.Parse(childElement.InnerText);
+
+                if (unit != 0) tempRate.Value = value / unit;
+
+                Rates.Add(tempRate);
+            }
         }
     }
 }
