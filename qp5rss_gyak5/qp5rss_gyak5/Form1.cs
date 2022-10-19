@@ -16,10 +16,12 @@ namespace qp5rss_gyak5
     public partial class Form1 : Form
     {
         BindingList<RateData> Rates = new BindingList<RateData>();
+        BindingList<string> Currencies = new BindingList<string>();   
 
         public Form1()
         {
             InitializeComponent();
+            LoadCurrencies();
             RefreshData();
         }
 
@@ -28,6 +30,34 @@ namespace qp5rss_gyak5
             Rates.Clear();
             ProcessXML(LoadMNB());
             FillChart();
+        }
+
+        private void LoadCurrencies()
+        {
+            MNBArfolyamServiceSoapClient mnbService = new MNBArfolyamServiceSoapClient();
+
+            var request = new GetCurrenciesRequestBody();
+
+            var response = mnbService.GetCurrencies(request);
+
+            var result = response.GetCurrenciesResult;
+
+            XmlDocument xml = new XmlDocument();
+            xml.LoadXml(result.ToString());
+
+            foreach(XmlElement element in xml.DocumentElement.ChildNodes)
+            {
+                if(element.HasChildNodes)
+                {
+                    for(int i = 0; i < element.ChildNodes.Count; i++)
+                    {
+                        Currencies.Add(element.ChildNodes[i].InnerText);
+                    }
+                }
+            }
+
+            comboBox1.DataSource = Currencies;
+            comboBox1.Text = "EUR";
         }
 
         private string LoadMNB()
@@ -61,6 +91,7 @@ namespace qp5rss_gyak5
                 tempRate.Date = DateTime.Parse(element.GetAttribute("date"));
 
                 var childElement = (XmlElement)element.ChildNodes[0];
+                if (childElement == null) continue;
                 tempRate.Currency = childElement.GetAttribute("curr");
 
                 var unit = decimal.Parse(childElement.GetAttribute("unit"));
