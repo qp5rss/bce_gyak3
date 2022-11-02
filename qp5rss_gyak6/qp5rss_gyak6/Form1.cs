@@ -70,6 +70,15 @@ namespace qp5rss_gyak6
             };
         }
 
+        private void btnPresent_Click(object sender, EventArgs e)
+        {
+            Factory = new PresentFactory
+            {
+                FirstColor = btnFirstColour.BackColor,
+                SecondColor = btnSecondColour.BackColor
+            };
+        }
+
         private void DisplayNext()
         {
             if (_nextToy != null)
@@ -81,6 +90,28 @@ namespace qp5rss_gyak6
         }
 
         private void btnColour_Click(object sender, EventArgs e)
+        {
+            var button = (Button)sender;
+            var colorPicker = new ColorDialog();
+
+            colorPicker.Color = button.BackColor;
+            if (colorPicker.ShowDialog() != DialogResult.OK)
+                return;
+            button.BackColor = colorPicker.Color;
+        }
+
+        private void btnFirstColour_Click(object sender, EventArgs e)
+        {
+            var button = (Button)sender;
+            var colorPicker = new ColorDialog();
+
+            colorPicker.Color = button.BackColor;
+            if (colorPicker.ShowDialog() != DialogResult.OK)
+                return;
+            button.BackColor = colorPicker.Color;
+        }
+
+        private void btnSecondColour_Click(object sender, EventArgs e)
         {
             var button = (Button)sender;
             var colorPicker = new ColorDialog();

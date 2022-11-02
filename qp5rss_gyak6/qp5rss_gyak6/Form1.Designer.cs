@@ -35,12 +35,18 @@
             this.btnCar = new System.Windows.Forms.Button();
             this.btnBall = new System.Windows.Forms.Button();
             this.lblCmNext = new System.Windows.Forms.Label();
+            this.btnPresent = new System.Windows.Forms.Button();
             this.btnColour = new System.Windows.Forms.Button();
+            this.btnFirstColour = new System.Windows.Forms.Button();
+            this.btnSecondColour = new System.Windows.Forms.Button();
             this.mainPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // mainPanel
             // 
+            this.mainPanel.Controls.Add(this.btnSecondColour);
+            this.mainPanel.Controls.Add(this.btnFirstColour);
+            this.mainPanel.Controls.Add(this.btnPresent);
             this.mainPanel.Controls.Add(this.btnColour);
             this.mainPanel.Controls.Add(this.lblCmNext);
             this.mainPanel.Controls.Add(this.btnBall);
@@ -85,11 +91,21 @@
             // lblCmNext
             // 
             this.lblCmNext.AutoSize = true;
-            this.lblCmNext.Location = new System.Drawing.Point(165, 405);
+            this.lblCmNext.Location = new System.Drawing.Point(10, 68);
             this.lblCmNext.Name = "lblCmNext";
             this.lblCmNext.Size = new System.Drawing.Size(68, 13);
             this.lblCmNext.TabIndex = 2;
             this.lblCmNext.Text = "Coming next:";
+            // 
+            // btnPresent
+            // 
+            this.btnPresent.Location = new System.Drawing.Point(165, 400);
+            this.btnPresent.Name = "btnPresent";
+            this.btnPresent.Size = new System.Drawing.Size(75, 23);
+            this.btnPresent.TabIndex = 4;
+            this.btnPresent.Text = "PRESENT";
+            this.btnPresent.UseVisualStyleBackColor = true;
+            this.btnPresent.Click += new System.EventHandler(this.btnPresent_Click);
             // 
             // btnColour
             // 
@@ -101,6 +117,28 @@
             this.btnColour.TabIndex = 3;
             this.btnColour.UseVisualStyleBackColor = false;
             this.btnColour.Click += new System.EventHandler(this.btnColour_Click);
+            // 
+            // btnFirstColour
+            // 
+            this.btnFirstColour.BackColor = System.Drawing.Color.MediumSeaGreen;
+            this.btnFirstColour.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.btnFirstColour.Location = new System.Drawing.Point(246, 400);
+            this.btnFirstColour.Name = "btnFirstColour";
+            this.btnFirstColour.Size = new System.Drawing.Size(29, 23);
+            this.btnFirstColour.TabIndex = 5;
+            this.btnFirstColour.UseVisualStyleBackColor = false;
+            this.btnFirstColour.Click += new System.EventHandler(this.btnFirstColour_Click);
+            // 
+            // btnSecondColour
+            // 
+            this.btnSecondColour.BackColor = System.Drawing.Color.Tomato;
+            this.btnSecondColour.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.btnSecondColour.Location = new System.Drawing.Point(281, 400);
+            this.btnSecondColour.Name = "btnSecondColour";
+            this.btnSecondColour.Size = new System.Drawing.Size(29, 23);
+            this.btnSecondColour.TabIndex = 6;
+            this.btnSecondColour.UseVisualStyleBackColor = false;
+            this.btnSecondColour.Click += new System.EventHandler(this.btnSecondColour_Click);
             // 
             // Form1
             // 
@@ -124,6 +162,9 @@
         private System.Windows.Forms.Button btnBall;
         private System.Windows.Forms.Button btnCar;
         private System.Windows.Forms.Label lblCmNext;
+        private System.Windows.Forms.Button btnPresent;
+        private System.Windows.Forms.Button btnSecondColour;
+        private System.Windows.Forms.Button btnFirstColour;
         private System.Windows.Forms.Button btnColour;
     }
 }
