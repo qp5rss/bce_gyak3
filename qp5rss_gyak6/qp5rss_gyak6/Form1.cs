@@ -23,6 +23,8 @@ namespace qp5rss_gyak6
             set { _factory = value; }
         }
 
+        private Toy _nextToy;
+
         public Form1()
         {
             InitializeComponent();
@@ -53,6 +55,37 @@ namespace qp5rss_gyak6
                 mainPanel.Controls.Remove(oldestToy);
                 _toys.Remove(oldestToy);
             }
+        }
+
+        private void btnCar_Click(object sender, EventArgs e)
+        {
+            Factory = new CarFactory();
+        }
+
+        private void btnBall_Click(object sender, EventArgs e)
+        {
+            Factory = new BallFactory();
+        }
+
+        private void DisplayNext()
+        {
+            if (_nextToy != null)
+                Controls.Remove(_nextToy);
+            _nextToy = Factory.CreateNew();
+            _nextToy.Top = lblCmNext.Top + lblCmNext.Height + 20;
+            _nextToy.Left = lblCmNext.Left;
+            Controls.Add(_nextToy);
+        }
+
+        private void btnColour_Click(object sender, EventArgs e)
+        {
+            var button = (Button)sender;
+            var colorPicker = new ColorDialog();
+
+            colorPicker.Color = button.BackColor;
+            if (colorPicker.ShowDialog() != DialogResult.OK)
+                return;
+            button.BackColor = colorPicker.Color;
         }
     }
 }
