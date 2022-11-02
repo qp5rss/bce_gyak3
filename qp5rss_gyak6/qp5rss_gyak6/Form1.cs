@@ -64,7 +64,10 @@ namespace qp5rss_gyak6
 
         private void btnBall_Click(object sender, EventArgs e)
         {
-            Factory = new BallFactory();
+            Factory = new BallFactory
+            {
+                BallColor = btnColour.BackColor
+            };
         }
 
         private void DisplayNext()
