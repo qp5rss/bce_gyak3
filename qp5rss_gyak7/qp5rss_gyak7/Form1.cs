@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using qp5rss_gyak7.Entities;
+using System.IO;
 
 namespace qp5rss_gyak7
 {
@@ -16,6 +17,7 @@ namespace qp5rss_gyak7
         PortfolioEntities context = new PortfolioEntities();
         List<Tick> Ticks;
         List<PortfolioItem> Portfolio = new List<PortfolioItem>();
+        List<decimal> Nyereségek;
 
         public Form1()
         {
@@ -25,7 +27,7 @@ namespace qp5rss_gyak7
 
             CreatePortfolio();
 
-            List<decimal> Nyereségek = new List<decimal>();
+            Nyereségek = new List<decimal>();
             int intervalum = 30;
             DateTime kezdőDátum = (from x in Ticks select x.TradingDay).Min();
             DateTime záróDátum = new DateTime(2016, 12, 30);
@@ -66,6 +68,27 @@ namespace qp5rss_gyak7
             }
 
             return value;
+        }
+
+        private void mentésToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.Filter = "Text file|*.txt";
+            sfd.Title = "Értékek elmentése...";
+            sfd.ShowDialog();
+
+            if(sfd.FileName != "")
+            {
+                using(StreamWriter sw = new StreamWriter(sfd.FileName))
+                {
+                    sw.WriteLine("Időszak Nyereség");
+
+                    for(int i = 0; i < Nyereségek.Count; i++)
+                    {
+                        sw.WriteLine("{0} {1}", i + 1, Nyereségek[i]); 
+                    }
+                }
+            }
         }
     }
 }
