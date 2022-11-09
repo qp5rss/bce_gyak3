@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33103.184
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "qp5rss_gyak7", "qp5rss_gyak7\qp5rss_gyak7.csproj", "{7CBC1C99-0D75-4962-AA0B-CE87DC7DBE92}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7CBC1C99-0D75-4962-AA0B-CE87DC7DBE92}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7CBC1C99-0D75-4962-AA0B-CE87DC7DBE92}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7CBC1C99-0D75-4962-AA0B-CE87DC7DBE92}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7CBC1C99-0D75-4962-AA0B-CE87DC7DBE92}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4B7BBF8D-A486-478D-A551-FB551738A208}
+	EndGlobalSection
+EndGlobal
