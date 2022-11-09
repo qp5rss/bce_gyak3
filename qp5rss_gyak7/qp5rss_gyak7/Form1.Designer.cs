@@ -39,15 +39,15 @@
             this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView.Location = new System.Drawing.Point(13, 13);
             this.dataGridView.Name = "dataGridView";
-            this.dataGridView.Size = new System.Drawing.Size(240, 150);
+            this.dataGridView.Size = new System.Drawing.Size(378, 425);
             this.dataGridView.TabIndex = 0;
             // 
             // dataGridViewPortfolio
             // 
             this.dataGridViewPortfolio.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewPortfolio.Location = new System.Drawing.Point(259, 13);
+            this.dataGridViewPortfolio.Location = new System.Drawing.Point(397, 13);
             this.dataGridViewPortfolio.Name = "dataGridViewPortfolio";
-            this.dataGridViewPortfolio.Size = new System.Drawing.Size(240, 150);
+            this.dataGridViewPortfolio.Size = new System.Drawing.Size(391, 425);
             this.dataGridViewPortfolio.TabIndex = 1;
             // 
             // Form1
