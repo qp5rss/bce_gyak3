@@ -111,6 +111,26 @@ namespace UnitTestExample.Test
             Test,
             TestCase("irf@uni-corvinus.hu", "Abcd1234")
         ]
-        public void 
+        public void TestRegisterApplicationException(string newEmail, string newPassword)
+        {
+            // Arrange
+            var accountServiceMock = new Mock<IAccountManager>(MockBehavior.Strict);
+            accountServiceMock
+                .Setup(m => m.CreateAccount(It.IsAny<Account>()))
+                .Throws<ApplicationException>();
+            var accountController = new AccountController();
+            accountController.AccountManager = accountServiceMock.Object;
+
+            // Act
+            try
+            {
+                var actualResult = accountController.Register(newEmail, newPassword);
+                Assert.Fail();
+            }
+            catch (Exception ex)
+            {
+                Assert.IsInstanceOf<ApplicationException>(ex);
+            }
+        }
     }
 }
