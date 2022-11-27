@@ -135,5 +135,19 @@ namespace qp5rss_gyak9
 
             return dProbabilities;
         }
+
+        private void bBrowse_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+
+            ofd.InitialDirectory = @"C:\\temp";
+            ofd.Filter = "Comma separated values (*.csv)|*.csv";
+            ofd.RestoreDirectory = true;
+
+            if(ofd.ShowDialog() == DialogResult.OK)
+            {
+                tbFile.Text = ofd.FileName;
+            }
+        }
     }
 }
