@@ -35,6 +35,7 @@
             this.bBrowse = new System.Windows.Forms.Button();
             this.bStart = new System.Windows.Forms.Button();
             this.richTextBox = new System.Windows.Forms.RichTextBox();
+            this.progressBar = new System.Windows.Forms.ProgressBar();
             ((System.ComponentModel.ISupportInitialize)(this.nudYear)).BeginInit();
             this.SuspendLayout();
             // 
@@ -66,7 +67,7 @@
             this.nudYear.Size = new System.Drawing.Size(48, 20);
             this.nudYear.TabIndex = 1;
             this.nudYear.Value = new decimal(new int[] {
-            2025,
+            2006,
             0,
             0,
             0});
@@ -119,11 +120,19 @@
             this.richTextBox.TabIndex = 6;
             this.richTextBox.Text = "";
             // 
+            // progressBar
+            // 
+            this.progressBar.Location = new System.Drawing.Point(15, 444);
+            this.progressBar.Name = "progressBar";
+            this.progressBar.Size = new System.Drawing.Size(500, 23);
+            this.progressBar.TabIndex = 7;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(532, 450);
+            this.ClientSize = new System.Drawing.Size(528, 473);
+            this.Controls.Add(this.progressBar);
             this.Controls.Add(this.richTextBox);
             this.Controls.Add(this.bStart);
             this.Controls.Add(this.bBrowse);
@@ -148,6 +157,7 @@
         private System.Windows.Forms.Button bBrowse;
         private System.Windows.Forms.Button bStart;
         private System.Windows.Forms.RichTextBox richTextBox;
+        private System.Windows.Forms.ProgressBar progressBar;
     }
 }
 

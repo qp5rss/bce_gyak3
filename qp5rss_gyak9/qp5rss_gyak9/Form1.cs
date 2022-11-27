@@ -61,17 +61,23 @@ namespace qp5rss_gyak9
         {
             Progress<string> progress = new Progress<string>();
             progress.ProgressChanged += (_, newText) => richTextBox.Text += newText;
-            await Task.Run(() => Simulation((int)nudYear.Value, progress));
+            Progress<int> percentage = new Progress<int>(percent => progressBar.Value = percent);
+            await Task.Run(() => Simulation((int)nudYear.Value, progress, percentage));
         }
 
-        private void Simulation(int maxYear, IProgress<string> progress)
+        private void Simulation(int maxYear, IProgress<string> progress, IProgress<int> percentage)
         {
             progress.Report("Szimuláció megkezdése...\n\n");
             for (int year = 2005; year <= maxYear; year++)
             {
                 for (int i = 0; i < Population.Count; i++)
                 {
-                     SimStep(year, Population[i]);
+                    SimStep(year, Population[i]);
+                    if (i % (int)(Population.Count / 100000) == 0)
+                    {
+                        int percentComplete = (int)((i * 100) / Population.Count);
+                        percentage.Report(percentComplete);
+                    }
                 }
 
                 int nbrOfMales = (from x in Population
@@ -82,6 +88,7 @@ namespace qp5rss_gyak9
                                     select x).Count();
                 progress.Report(string.Format("Szimulációs év: {0}\n\tFérfiak: {1}\n\tNők: {2}\n\n", year, nbrOfMales, nbrOfFemales));
             }
+            percentage.Report(100);
             progress.Report("Sikeres futás.");
         }
 
