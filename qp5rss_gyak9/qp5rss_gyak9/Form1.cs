@@ -5,7 +5,9 @@ using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using qp5rss_gyak9.Entities;
@@ -23,16 +25,53 @@ namespace qp5rss_gyak9
         public Form1()
         {
             InitializeComponent();
+        }
 
-            Population = GetPopulation(@"C:\Temp\nép.csv");
-            BirthProbabilities = GetBirthProbabilities(@"C:\Temp\születés.csv");
-            DeathProbabilities = GetDeathProbabilities(@"C:\Temp\halál.csv");
+        private async void bBrowse_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
 
-            for(int year = 2005; year <= 2024; year++)
+            ofd.InitialDirectory = @"C:\\temp";
+            ofd.Filter = "Comma separated values (*.csv)|*.csv";
+            ofd.RestoreDirectory = true;
+
+            if (ofd.ShowDialog() == DialogResult.OK)
             {
-                for(int i = 0; i < Population.Count; i++)
+                richTextBox.Text += "Adatok betöltése...\n";
+                var folder = tbFile.Text;
+                Progress<string> progress = new Progress<string>();
+                progress.ProgressChanged += (_, newText) => richTextBox.Text += newText;
+                await Task.Run(() => LoadData(folder, progress));
+                richTextBox.Text += "Adatok betöltve.\n";
+                bStart.Enabled = true;
+            }
+        }
+
+        private void LoadData(string folder, IProgress<string> progress)
+        {
+            BirthProbabilities = GetBirthProbabilities(@"C:\Temp\születés.csv");
+            progress.Report("\tSzületési esélyek betöltve.\n");
+            DeathProbabilities = GetDeathProbabilities(@"C:\Temp\halál.csv");
+            progress.Report("\tHalálozási esélyek betöltve.\n\tVárakozás a populáció betöltésére...\n");
+            Population = GetPopulation(folder);
+            progress.Report("\tPopuláció betöltve.\n\n");
+        }
+
+        private async void bStart_Click(object sender, EventArgs e)
+        {
+            Progress<string> progress = new Progress<string>();
+            progress.ProgressChanged += (_, newText) => richTextBox.Text += newText;
+            await Task.Run(() => Simulation((int)nudYear.Value, progress));
+        }
+
+        private void Simulation(int maxYear, IProgress<string> progress)
+        {
+            progress.Report("Szimuláció megkezdése...\n\n");
+            for (int year = 2005; year <= maxYear; year++)
+            {
+                for (int i = 0; i < Population.Count; i++)
                 {
-                    SimStep(year, Population[i]);
+                     SimStep(year, Population[i]);
                 }
 
                 int nbrOfMales = (from x in Population
@@ -41,8 +80,9 @@ namespace qp5rss_gyak9
                 int nbrOfFemales = (from x in Population
                                     where x.Gender == Gender.Female && x.IsAlive
                                     select x).Count();
-                Console.WriteLine(string.Format("Év:{0} Férfiak:{1} Nők:{2}", year, nbrOfMales, nbrOfFemales));
+                progress.Report(string.Format("Szimulációs év: {0}\n\tFérfiak: {1}\n\tNők: {2}\n\n", year, nbrOfMales, nbrOfFemales));
             }
+            progress.Report("Sikeres futás.");
         }
 
         private void SimStep(int year, Person person)
@@ -134,20 +174,6 @@ namespace qp5rss_gyak9
             }
 
             return dProbabilities;
-        }
-
-        private void bBrowse_Click(object sender, EventArgs e)
-        {
-            OpenFileDialog ofd = new OpenFileDialog();
-
-            ofd.InitialDirectory = @"C:\\temp";
-            ofd.Filter = "Comma separated values (*.csv)|*.csv";
-            ofd.RestoreDirectory = true;
-
-            if(ofd.ShowDialog() == DialogResult.OK)
-            {
-                tbFile.Text = ofd.FileName;
-            }
         }
     }
 }
