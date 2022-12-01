@@ -51,7 +51,9 @@ namespace qp5rss_gyak9
                 percentage.ProgressChanged += (_, percent) => 
                 {   
                     progressBar.Value = percent; 
-                    progressLabel.Text = "Feladat fut. Betöltés állapota: " + (mainFileLength * (double)percent/100).ToString("0") + "/" + mainFileLength + " sor feldolgozva."; 
+                    progressLabel.Text = "Feladat fut. Betöltés állapota: " + 
+                        (mainFileLength * (double)percent/100).ToString("0") 
+                        + "/" + mainFileLength + " sor feldolgozva."; 
                 };
                 await Task.Run(() => LoadData(folder, progress, percentage, lineCount));
 
