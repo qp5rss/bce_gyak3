@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.label1 = new System.Windows.Forms.Label();
             this.nudYear = new System.Windows.Forms.NumericUpDown();
             this.label2 = new System.Windows.Forms.Label();
@@ -36,7 +37,10 @@
             this.bStart = new System.Windows.Forms.Button();
             this.richTextBox = new System.Windows.Forms.RichTextBox();
             this.progressBar = new System.Windows.Forms.ProgressBar();
+            this.progressLabel = new System.Windows.Forms.Label();
+            this.progressIcon = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.nudYear)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.progressIcon)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -127,11 +131,32 @@
             this.progressBar.Size = new System.Drawing.Size(500, 23);
             this.progressBar.TabIndex = 7;
             // 
+            // progressLabel
+            // 
+            this.progressLabel.AutoSize = true;
+            this.progressLabel.Location = new System.Drawing.Point(38, 481);
+            this.progressLabel.Name = "progressLabel";
+            this.progressLabel.Size = new System.Drawing.Size(122, 13);
+            this.progressLabel.TabIndex = 8;
+            this.progressLabel.Text = "Jelenleg nem fut feladat.";
+            // 
+            // progressIcon
+            // 
+            this.progressIcon.Image = global::qp5rss_gyak9.Properties.Resources.progress_black;
+            this.progressIcon.Location = new System.Drawing.Point(15, 478);
+            this.progressIcon.Name = "progressIcon";
+            this.progressIcon.Size = new System.Drawing.Size(18, 18);
+            this.progressIcon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.progressIcon.TabIndex = 9;
+            this.progressIcon.TabStop = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(528, 473);
+            this.ClientSize = new System.Drawing.Size(528, 505);
+            this.Controls.Add(this.progressIcon);
+            this.Controls.Add(this.progressLabel);
             this.Controls.Add(this.progressBar);
             this.Controls.Add(this.richTextBox);
             this.Controls.Add(this.bStart);
@@ -140,9 +165,11 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.nudYear);
             this.Controls.Add(this.label1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "Népességnövekedés";
             ((System.ComponentModel.ISupportInitialize)(this.nudYear)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.progressIcon)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -158,6 +185,8 @@
         private System.Windows.Forms.Button bStart;
         private System.Windows.Forms.RichTextBox richTextBox;
         private System.Windows.Forms.ProgressBar progressBar;
+        private System.Windows.Forms.Label progressLabel;
+        private System.Windows.Forms.PictureBox progressIcon;
     }
 }
 
